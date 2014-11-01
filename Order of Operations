@@ -1,0 +1,44 @@
+/**************************************************************************
+ * This code will read in the order of operations txt file. This code will
+ * be converted into a function that will be used as a menu option.
+ * Depending on the format of the menu code, this function may return the
+ * sentence read in from the file.
+ * 
+ * Any line of code that are commented out are there in case we need to
+ * make this function return what was read in from the file. Otherwise 
+ * they can be deleted.
+ *************************************************************************/
+
+#include <fstream>
+//#include <sstream>
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+int main(){
+
+	//stringstream ss;			//string stream to return the string if
+								//need be.
+	ifstream inFile;			//Input file stream
+	string sentence;			//Used to store the sentence read in from
+								//the file.
+	inFile.open("Operations.txt"); //Opens the physical terrain file.
+
+	//DO-WHILE
+	//Read in the file and output it.
+	//(Can return the sentence read in from the file).
+	do{
+		getline(inFile, sentence);
+	//	ss << sentence;
+		cout << sentence << endl;
+	}while(inFile);
+
+	inFile.close();
+	//return ss.str();
+	return 0;
+}
+
+
+
+
