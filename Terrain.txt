@@ -1,0 +1,13 @@
+	//This can be edited by anyone if they feel it should be worded differently.
+	
+		Supported Physical Environments 
+ 
+Our robots are designed and engineered to defuse bombs with clear cut 
+accuracy. Due to their importance, it is absolutely necessary that our 
+robots are fully functional in almost any environment in order to get 
+the task at hand accomplished. Below are a list of Physical terrains 
+that our robots are capable of maneuvering through: 
+  
+•	Urban and Metropolitan Areas 
+•	Deserts 
+•	Beaches 
