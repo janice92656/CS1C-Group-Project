@@ -1,0 +1,14 @@
+	//This can be edited by anyone who feels that it should be worded differently
+			Concept of Operations
+
+Our robots are made to keep those out of harm’s way when it comes to 
+diffusing bombs or other explosive devices. Our robotics are operated with
+a remote laptop that can be used up to a range of 500 meters in line of 
+sight or within buildings. They are fully automated and have the ability
+to climb staircases, maneuver down steep slopes and terrains, and have the
+ability to move objects in order to reach their targets. Using a unique 
+X-Ray device, our robots are able to detect bombs that could be hidden 
+from plain sight and determine what the state of the detonator is. If need
+be, each robot is equipped with a water jet disrupter that can be used to 
+defuse a bomb and a portable shotgun that can be used to break open locked
+doors or windows. 
