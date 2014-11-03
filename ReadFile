@@ -1,0 +1,20 @@
+void ReadFile(string fileName);
+
+void ReadFile(string fileName)
+{
+	ifstream iFile;
+	string store;
+
+	iFile.open(fileName.c_str());
+
+	while(iFile)
+	{
+		iFile >> store;
+		cout << store;
+	}
+
+}
+
+
+// MAIN LOOKS LIKE THIS:
+// ReadFile("filename");
