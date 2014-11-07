@@ -1,0 +1,244 @@
+/************************************************************************
+* InputDoWhile(CHAR)
+* 	This function allows a character for input and error checks such
+*	input.
+* PRE-CONDITIONS
+*	charInput: The input character must be defined.
+*	prompt	 : The prompt for input must be defined
+* POST- CONDITIONS
+*	charInput: The input of the user will now be contained here.
+*	- RETURNS -> The input character.
+*************************************************************************/
+char InputDoWhile(string prompt,      //OUT - The kind of input being
+							          //	   searched for
+				  char   firstBound,
+				  char   secondBound)
+{
+	bool valid; 	// CALC - Determines if the input made into charInput
+					// was valid (ie m or f).
+	char charInput;	//CALC - The character being input
+	//Formating - Justify left
+	cout << left;
+	// PROCESS: While the input is not considered valid (ie is not m or
+	//			f), prompt the user for input.
+	do
+	{
+		// INPUT: Prompt the user for input.
+		cout << prompt;
+		cin.get(charInput);
+		// Processing - clear input buffer
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		// Processing - Set input to upper-case
+		charInput = toupper(charInput);
+		// PROCESS: Check if the character input is among the accepted
+		//			values.
+		valid = charInput == firstBound || charInput == secondBound;
+		// PROCESS: If the character input is invalid, output an error
+		//			message.
+		if(!valid)
+		{
+			// OUTPUT: Output the error message.
+			cout << "\n**** " << charInput << " is an invalid entry ****";
+			cout << endl << "**** Please input " << firstBound
+				 << " or " << secondBound << "   ****"
+				 << endl << endl << endl;
+		}
+	}while(!valid);
+	//Formating - Justify right
+	cout << right;
+
+	return charInput;
+}
+
+/*********************************************************************
+ * 																	 
+ * FUNCTION InputDoWhile(FLOAT)										 
+ * __________________________________________________________________
+ * This function receives the bottom and top limits for the float    
+ * input and a PROMPT that is specific to the data type that the     
+ * float is being used for.										 	 
+ * 																	 
+ * 	RETURNS -> A valid float input									 
+ * __________________________________________________________________
+ * 	PRE-CONDITIONS													 
+ * 		BOT_LIMIT - Must be previously declared						 
+ * 		TOP_LIMIT - Must be previously declared						 
+ * 		PROMPT    - Must be previously declared						 
+ * 																	 
+ * 	POST-CONDITIONS													 
+ * 		This function will return a valid float value				 
+ ********************************************************************/
+float InputDoWhile(const string PROMPT, // IN - PROMPT based on
+		                                  //      data type
+		           const float BOT_LIMIT, // IN - Bot float limit
+				   const float TOP_LIMIT) // IN - Top float limit
+{
+	bool            invalid;   // CALC - The LCV of the do while loop
+	float           number;    // CALC - The menu option chosen by the user
+	ostringstream   errorTwo;  // CALC - The first line of the error
+	ostringstream   errorOne;  // CALC - The second line of the error
+	int             maxLength; // CALC - Length of the longer error
+
+	// PROCESSING - Initializes number and maxLength to zero
+	number    = 0;
+	maxLength = 0;
+
+	cout << left << setprecision(2) << fixed;
+
+
+	// PROCESSING - This do-while loop errorOne checks the float input
+	do
+	{
+		cout << PROMPT;
+		// PROCESSING - Initializes invalid to false;
+		invalid = false;
+
+		if(!(cin >> number))
+		{
+			// PROCESSING - Notifies the user of their invalid input,
+			//				clears the fail state of the input and the
+			//				input buffer, and sets invalid to true
+			cout << "\n**** Please input a NUMBER between "
+				 << BOT_LIMIT << " and " << TOP_LIMIT << " ****\n\n\n";
+			cin.clear();
+			invalid = true;
+		}
+		else if (number < BOT_LIMIT || number > TOP_LIMIT)
+		{
+			// PROCESSING - Creates two ostringstream variables and then
+			//				compares their lengths for output formatting
+			errorOne  << "The number " << number
+					  << " is an invalid entry";
+			errorTwo  << "Please input a number between "
+				      << BOT_LIMIT << " and " << TOP_LIMIT;
+
+			// PROCESSING - Sets the maxLength to the larger ostringstream
+			//				length
+			if(errorOne.str().length() > errorTwo.str().length())
+			{
+				maxLength = errorOne.str().length();
+			}
+			else
+			{
+				maxLength = errorTwo.str().length();
+			}
+
+			// PROCESSING - Notifies the user of their invalid input and
+			//				sets invalid to true
+			cout << "\n**** " << setw(maxLength) << errorOne.str()
+				 << " ****\n";
+			cout << "**** "   << setw(maxLength) << errorTwo.str()
+				 << " ****\n\n\n";
+			invalid = true;
+			errorOne.str("");
+			errorTwo.str("");
+		}
+		// PROCESSING - Clears the input buffer
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}while(invalid);
+
+	cout << endl;
+
+	return number;
+}
+
+/************************************************************************
+* InputDoWhile(INT)
+* 	This function allows an integer for input and error checks such
+*	input.
+* PRE-CONDITIONS
+*	upperBound  : The integer input representing the max boundry.
+*	lowerBound  : The integer input representing the min boundry.	
+*	prompt      : The prompt for the input must be defined. 
+*	inputWidth  : The max string length.
+* POST-CONDITIONS
+*	- RETURNS -> The input integer.
+*************************************************************************/
+int InputDoWhile(string prompt,
+			     int upperBound,
+			     int lowerBound)
+{
+	bool valid;			  // CALC - Determines if the integer input is
+						  //		valid.
+	ostringstream intStr; // CALC - The string stream version of the
+						  //		integer input made into inputNum.
+	ostringstream errorMsg1; // OUT - The first error message string.
+	ostringstream errorMsg2; // OUT - The second error message string.
+	long long inputNum;
+	//Assign error message 
+	errorMsg2 << "**** Please input a number between " << lowerBound
+			  << " and " << upperBound;
+
+	// PROCESS: While input is invalid, ask the user for an integral
+	//			input.
+	do
+	{
+		//Formating - Justify left
+		cout << left;
+		// INPUT: Prompt the user for an integral input.
+		cout << prompt;
+		//Formating - Justify right
+		cout << right;
+		// PROCESS: If the input is not a number, output an error
+		//			message telling the user that the input must
+		//			be a number. Else, check if the number input
+		//			falls into the accepted values.
+		if(!(cin >> inputNum))
+		{
+			//OUT - Error message for char input
+			cout << endl << errorMsg2.str() << " ****"
+				 << endl << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			valid = false;
+		}
+		else
+		{
+			// PROCESS: Check if inputNum is invalid.
+			valid = inputNum >= lowerBound && inputNum <= upperBound;
+			
+			// PROCESS: If inputNum is invalid, output an error message.
+			if(!valid)
+			{
+				// OUTPUT: Place inputNum into the ostringstream intStr.
+				intStr <<  inputNum;
+
+				// OUTPUT: Output the message indicating inputNum was not
+				//		   in the allowed range of numbers.
+				errorMsg1 << "**** The number " << inputNum
+						  << " is an invalid entry";
+				cout << endl;
+				// OUT - Adjust error message length relitave to 
+				//     which is longer. 
+				if(errorMsg1.str().size() > errorMsg2.str().size())
+				{
+					cout << errorMsg1.str() << " ****" << endl;
+					cout << errorMsg2.str()
+						 << setw(5 + (errorMsg1.str().size() -
+								 errorMsg2.str().size()))
+						 << " ****" << endl << endl;
+				}
+				else
+				{
+					cout << errorMsg1.str()
+						 << setw(5 + (errorMsg2.str().size() -
+								 errorMsg1.str().size()))
+						 << " ****" << endl;
+					cout << errorMsg2.str() << " ****"
+						 << endl << endl;
+				}//End - if(errorMsg1.str().size() > errorMsg2.str().size())
+				// PROCESS: Clear the ostringstream intStr.
+				intStr.str("");
+				errorMsg1.str("");
+			}
+		}//End - if(!(cin >> inputNum))
+
+	}while(!valid);
+	// OUTPUT: Set output to be justified to the right.
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	// Formatting
+	cout << endl;
+
+	return inputNum;
+}
