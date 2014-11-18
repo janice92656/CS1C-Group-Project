@@ -1,7 +1,7 @@
 	//This can be edited by anyone who feels that it should be worded differently
-			Concept of Operations
+Concept of Operations
 
-Our robots are made to keep those out of harm’s way when it comes to 
+Our robots are made to keep those out of harms way when it comes to 
 diffusing bombs or other explosive devices. Our robotics are operated with
 a remote laptop that can be used up to a range of 500 meters in line of 
 sight or within buildings. They are fully automated and have the ability
