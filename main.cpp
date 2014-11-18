@@ -14,47 +14,26 @@ using namespace std;
  void ReadFile (string fileName);
  string MenuFuncOne();
  string MaintenanceFunc();
+ void CustomerMenu();
+ void EmployeeMenu();
 
 int main()
 {
-    cout << "Programmed by	: Janice Wallace, Kyle Serio, Seth Tyler, Matt Regueiro\n";
-    cout << "CS1B		: TTh 6-7:30 pm\n";
-    cout << "Assignment	: Class Project\n\n";
-	
     int choice;
-
-    cout << endl;
-    cout << MenuFuncOne();
+    ReadFile("welcome.txt");
     cin >> choice;
-    // cin.ignore(1000,'\n');
-	
-    while(choice > 0)
-    {
-	switch (choice)
-    	{
-        case 1 : ReadFile("Key Selling Points.txt");
-            break;
-        case 2 : ReadFile("terrain.txt");
-            break;
-        case 3 : ReadFile("operations.txt");        
-            break;
-        case 4 : ReadFile("guarantee.txt");       
-            break;
-	case 5 : ReadFile("pricing.txt");
-            break;
-	case 6 : cout << MaintenanceFunc();
-            break;
-        case 7: ReadFile("testimonials.txt");
-            break;
-       	default : cout << "Error, Incorrect Input!\n";
-	}
-		
-	cout << MenuFuncOne();
-	cin >> choice;
-	// cin.ignore(1000,'\n');
-		
-	}
-      	return 0;
+    switch(choice)
+        {
+          case 1: CustomerMenu();
+              break;
+          case 2: EmployeeMenu();
+              break;
+          case 0: return 0;
+              break;
+          default: cout << "\nError, Incorrect Input!";
+        }
+
+    return 0;
 }
 
 ///************************************************************************
@@ -68,14 +47,15 @@ int main()
 //*************************************************************************/
 string MenuFuncOne()
 {
-string menuSegment = "\nMAIN MENU"
+string menuSegment = "\nCUSTOMER MENU"
         "\n1 - Selling Points"
 	"\n2 - Environments Supported"
 	"\n3 - Concept of operations"
 	"\n4 - Guarantee Policy"
 	"\n5 - Options and Pricing"
 	"\n6 - Logistics and Maintenance"
-	"\n7 - Customer Testimonies"
+	"\n7 - Customer Testimonials"
+        "\n8 - Request a brochure"
         "\n  - Enter a negative number to exit.";
 return menuSegment;
 }
@@ -127,4 +107,47 @@ string MaintenanceFunc()
 	"\n*                                                                 "
 	"\n******************************************************************"
         "\n";
+}
+
+void CustomerMenu()
+{
+    int choice;
+    cout << endl;
+    cout << MenuFuncOne();
+    cin >> choice;
+    // cin.ignore(1000,'\n');
+	
+    while(choice > 0)
+    {
+	switch (choice)
+    	{
+        case 1 : ReadFile("Key Selling Points.txt");
+            break;
+        case 2 : ReadFile("terrain.txt");
+            break;
+        case 3 : ReadFile("operations.txt");        
+            break;
+        case 4 : ReadFile("guarantee.txt");       
+            break;
+	case 5 : ReadFile("pricing.txt");
+            break;
+	case 6 : cout << MaintenanceFunc();
+            break;
+        case 7: ReadFile("testimonials.txt");
+            break;
+        case 8: cout << "Thank you for requesting a brochure.";
+            break;
+       	default : cout << "Error, Incorrect Input!\n";
+	}
+		
+	cout << MenuFuncOne();
+	cin >> choice;
+	// cin.ignore(1000,'\n');
+		
+	}
+}
+
+void EmployeeMenu()
+{
+    cout << "\nNo code for employee login.";
 }
