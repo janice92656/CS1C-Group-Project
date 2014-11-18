@@ -1,0 +1,12 @@
+----------------------------------------------------------------
+|                                                              |
+| 		Welcome to iRobotsTheBomb, Inc		       |
+|                                                              |
+| Please choose from the menu items below:                     |
+| 1: Customer Menu                                             |
+| 2: Employee Login                                            |
+| 0: Exit                                                      |
+|                                                              |
+|                                                              |
+|                                                              |
+----------------------------------------------------------------
