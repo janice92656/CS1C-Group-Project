@@ -1,0 +1,4 @@
+Employee Menu
+
+1 - Display Customer List
+  - Enter a negative number to quit
