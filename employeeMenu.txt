@@ -1,4 +1,7 @@
 Employee Menu
 
 1 - Display Customer List
+2 - Print Customer List
+3 - Add Customers
+4 - Delete Customers
   - Enter a negative number to quit
