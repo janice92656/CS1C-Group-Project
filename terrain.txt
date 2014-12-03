@@ -1,4 +1,3 @@
-	//This can be edited by anyone if they feel it should be worded differently.
 Supported Physical Environments 
  
 Our robots are designed and engineered to defuse bombs with clear cut 
