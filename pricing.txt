@@ -1,3 +1,5 @@
+// This file contains information about the pricing and robot options.
+
 The Peeper
 Retail Price $2,500
 
@@ -39,3 +41,5 @@ too many Jaegar shots. The PhotoBomb Destroyer is your solution. Using the same
 facial recognition software and identity database as the FBI, this robot can identify 
 the perpetrator and track him down. PhotoBomb Destroyer then uses lasers to 
 completely eliminate any trace of the offending bomber.
+
+
