@@ -1,5 +1,8 @@
 #include "header.h"
-******************************************************
+#include <fstream>
+#include <iostream>
+using namespace std;
+/******************************************************
 // "file1" is the file holding names/pws
 // stored simply as: name pw
 //					         name pw
@@ -8,62 +11,67 @@
 //used in main as LogIn();
 
 //Needs the ADMIN ACCEPT to display the correct menu
-******************************************************
+******************************************************/
 
-void LogIn()
+bool LogIn()
 {
-	ifstream iFile;
-	string store;
-	string user;
-	string password;
-	bool found = false;
+    ifstream iFile;
+    string store;
+    string user;
+    string password;
+    char u;
+    int p;
+    bool found = false;
+    bool adminAccepted = false;
 
-	iFile.open("file1");
+    iFile.open("file1.txt");
 
-	while(iFile and found == false)
+    while(iFile and found == false)
+    {
+	cout << "Enter Username: ";
+	cin >> user;
+
+	do
 	{
-		cout << "Enter Username: ";
-		cin >> user;
+            iFile >> store;
 
-		do
+            if(store == user)
+            {
+            do
+            {
+		iFile >> store;
+
+		cout << "Enter Password: ";
+		cin >> password;
+
+                if(password == store)
 		{
-			iFile >> store;
+                    adminAccepted = true;
+                    cout << "ADMIN ACCEPTED\n";
+                    EmployeeMenu();
+                    found = true;
+		}
+                else
+		{
+                    
+                    throw p;
+		}
 
-			if(store == user)
-			{
-				do
-				{
-					iFile >> store;
+            }while(!found);
+	}
+            else
+		{
+                    iFile >> store;  
+		}
 
-					cout << "Enter Password: ";
-					cin >> password;
-
-					if(password == store)
-					{
-						//DISPLAY ADMIN MENU
-						cout << "ADMIN ACCEPTED\n";
-						found = true;
-					}
-					else
-					{
-						cout << "INCORRECT PASSWORD: LOG IN FAILED\n";
-						found = true;
-					}
-
-				}while(!found);
-			}
-			else
-			{
-				iFile >> store;
-				iFile.ignore(1000,'\n');
-			}
-
-		}while(iFile and !found);
+	}while(iFile and !found);
 	}
 
-	if(found == false)
+	if(!iFile)
 	{
-		cout << "Username Not Found\n\n";
+		
+                throw u;
 	}
-
+    iFile.close();
+    return adminAccepted;
 }
