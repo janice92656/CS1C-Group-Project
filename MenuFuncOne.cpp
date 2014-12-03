@@ -1,3 +1,17 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+///************************************************************************
+//* MenuFuncOne
+//* This function returns the first segment of the programs menu
+//* PRE-CONDITIONS
+// - NONE -
+//* POST- CONDITIONS
+//* menuSegment: The segment is stored and returned here.
+//* - RETURNS -> The menu segment.
+//*************************************************************************/
 ///************************************************************************
 //* MenuFuncOne
 //* This function returns the first segment of the programs menu
@@ -20,6 +34,8 @@ string menuSegment = "\nCUSTOMER MENU"
         "\n8  - Request a brochure"
         "\n9  - Shopping Cart"
         "\n10 - Contact Us"
+        "\n11 - Display Entire Brochure"
+        "\n12 - Return to Home Page"
         "\n   - Enter a negative number to exit.";
 return menuSegment;
 }
