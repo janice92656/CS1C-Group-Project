@@ -1,4 +1,3 @@
-	//This can be edited by anyone who feels that it should be worded differently
 Concept of Operations
 
 Our robots are made to keep those out of harms way when it comes to 

@@ -1,3 +1,5 @@
+// This file contains customer testimonials
+
 Testimonials
 
 These robots saved my life! My angry ex-boyfriend left a rather nasty surprise for 
