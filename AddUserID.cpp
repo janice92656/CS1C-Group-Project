@@ -23,4 +23,3 @@ void AddUser(string fileName)
 
     oFile.close();
 }
-
