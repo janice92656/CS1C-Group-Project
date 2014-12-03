@@ -1,3 +1,4 @@
+
 /***********************************************************
  * Request Brochures
  *  This is a simple function that will as the customers if
@@ -13,38 +14,37 @@
 #include <string>
 #include <ios>
 #include <limits>
+#include "header.h"
 using namespace std;
-
-void RequestBrochure();
-
-int main(){
-
-	RequestBrochure();
-
-	return 0;
-}
 
 void RequestBrochure(){
 	string companyName;
-	char response;
+        char response;
+        
+        cout << "Enter Company Name: ";
+        cin >> companyName;
+        // cin.getline(companyName, 100);
+        // getline(cin, companyName);
+        /*
+         */
 
-	cout << "Enter Company Name: ";
-	getline(cin, companyName);
 
 //After the company name has been entered it should be compared to the company names in the 
 //customer list.
 //This loop should not run if the customer's Company name cannot be found on the customer list.
-//If the Comapny Name is found in the list, the loop will run
+//If the Company Name is found in the list, the loop will run
 	do{
-		cout << "Are you sure you would like to request a brochure(Y/N)? ";
-		cin.get(response);
+		cout << "\nAre you sure you would like to request a brochure(Y/N)? ";
+		// cin.get(response);
+                cin >> response;
 
 		if(toupper(response) == 'Y'){
-			cout << "Thank You. Your request for a brochure has been "
+
+                    cout << "Thank You. Your request for a brochure has been "
 					"acknowledged.";
-			cout << endl;
-			//Once the customer has said yes the list should update to show that the customer has
-			//requested a brochure.
+                    cout << endl;
+                    //Once the customer has said yes the list should update to show that the customer has
+                    //requested a brochure.
 		}
 		else if(toupper(response) == 'N'){
 			cout << "Your request for a brochure has not been acknowledged.";
@@ -57,4 +57,3 @@ void RequestBrochure(){
 		cin.ignore(numeric_limits<streamsize>::max(),'\n');
 	}while(toupper(response) != 'Y' && toupper(response) != 'N');
 }
-
