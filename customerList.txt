@@ -1,5 +1,3 @@
-// This file contains customer data
-
 Los Angeles Airport
 12345 Main
 El Segundo
