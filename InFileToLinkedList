@@ -1,0 +1,21 @@
+CustomerList MakeList(CustomerList Head, ifstream InFile)
+{
+	Customer* addition;
+	
+	while(InFile)
+	{
+		addition = new Customer;
+		addition->SetCustomerName(InFile);
+		addition->SetCustomerAddress(InFile);
+		addition->SetCustomerCity(InFile);
+		addition->SetCustomerState(InFile);
+		addition->SetCustomerZip(InFile);
+		addition->SetInterest(InFile);
+		addition->SetDesire(InFile);
+		addition->SetBrochure('N');
+		Head.Add(addition);
+		delete addition;
+	}
+	
+	return Head;
+}
