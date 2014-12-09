@@ -16,44 +16,61 @@ using namespace std;
 
 class Customer
 {
-	public:
-	Customer();                                     //Customer constructor
-	~Customer();                                    //Customer deconstructor
-	void SetCustomerName(string customName);        //Sets the customer's name
-	void SetCustomerAddress(string customAddress);  //Sets the customer's address
-	void SetCustomerCity(string customCity);        //Sets the customer's city
-	void SetCustomerState(string customState);      //Sets the customer's state
-	void SetCustomerZip(int customZip);             //Sets the customer's zip code
-	void SetInterest(string customInterest);        //Sets the customer's interest level
-	void SetDesire(string customDesire);            //Sets the customer's level of desire
+    public:
+    Customer();                                     //Customer constructor
+    ~Customer();                                    //Customer deconstructor
+    void SetCustomerName(string customName);        //Sets the customer's name
+    void SetCustomerAddress(string customAddress);  //Sets the customer's 
+                                                    //address
+    void SetCustomerCity(string customCity);        //Sets the customer's city
+    void SetCustomerState(string customState);      //Sets the customer's state
+    void SetCustomerZip(string customZip);             //Sets the customer's
+                                                    //zip code
+    void SetInterest(string customInterest);        //Sets the customer's 
+                                                    //interest level
+    void SetDesire(string customDesire);            //Sets the customer's level 
+                                                    //of desire
+    void SetBrochure(char customBrochure);          //Sets The Customer's
+                                                    //Brochure
 
-	void ChangeCustomerName(string customName);       //Changes the customer's name
-	void ChangeCustomerAddress(string customAddress); //Changes the customer's address
-	void ChangeCustomerCity(string customCity);       //Changes the customer's city
-	void ChangeCustomerState(string customState);     //Changes the customer's state
-	void ChangeCustomerZip(int customZip);            //Changes the customer's zip code
-	void ChangeInterest(string customInterest);       //Changes the customer's interest level
-	void ChangeDesire(string customDesire);           //Chagnes the customer's level of desire
+    void ChangeCustomerName(string customName);       //Changes the customer's
+                                                      //name
+    void ChangeCustomerAddress(string customAddress); //Changes the customer's 
+                                                      //address
+    void ChangeCustomerCity(string customCity);       //Changes the customer's 
+                                                      //city
+    void ChangeCustomerState(string customState);     //Changes the customer's
+                                                      //state
+    void ChangeCustomerZip(string customZip);         //Changes the customer's
+                                                      //zip code
+    void ChangeInterest(string customInterest);       //Changes the customer's 
+                                                      //interest level
+    void ChangeDesire(string customDesire);           //Changes the customer's 
+                                                      //level of desire
+    void ChangeBrochure(char customBrochure);         //Changes The Customer's
+                                                      //Brochure
 
-	string GetCustomerName();     //Gets the customer's name
-	string GetCustomerAddress();  //Gets the customer's address
-	string GetCustomerCity();     //Gets the customer's city
-	string GetCustomerState();    //Gets the customer's state
-	int GetCustomerZip();         //Gets the customer's zip code
-	string GetInterest();         //Gets the customer's interest level
-	string GetDesire();           //Gets the customer's level of desire
+    string GetCustomerName();     //Gets the customer's name
+    string GetCustomerAddress();  //Gets the customer's address
+    string GetCustomerCity();     //Gets the customer's city
+    string GetCustomerState();    //Gets the customer's state
+    string GetCustomerZip();      //Gets the customer's zip code
+    string GetInterest();         //Gets the customer's interest level
+    string GetDesire();           //Gets the customer's level of desire
+    char   GetBrochure();         //Get the customers brochure
 
-	bool RecievedBrochure();      //Checks to see if the customer received their brochure or not
+    bool RecievedBrochure();      //Checks to see if the customer received 
+                                  //their brochure or not
 
-	private:
-	string name;      //Customer name
-	string address;   //Customer address
-	string city;      //Customer city
-	string state;     //Customer state
-	int zip;          //Customer zip code
-	string interest;  //Customer level of interest
-	string desire;    //Customer level of desire
-	char brochure;    //Whether or not the customer got a brochure.
+    private:
+    string name;      //Customer name
+    string address;   //Customer address
+    string city;      //Customer city
+    string state;     //Customer state
+    string zip;          //Customer zip code
+    string interest;  //Customer level of interest
+    string desire;    //Customer level of desire
+    char brochure;    //Whether or not the customer got a brochure.
 };
 
 #endif /* CUSTOMER_H_ */
