@@ -1,97 +1,13 @@
-struct Node
+CustomerList AddFunc(CustomerList Head, Customer Data)
 {
-	Customer Data;
-	Node*    Next;
-};
-
-typedef Node* NodePointer;
-
-/*********************************************************
- * AddLinkedList - Receives Linked List Head, Tail,
- * and Data to Add. Adds to The Back of the Linked List
- *********************************************************/
-
-Customer AddFunc(Customer* Head, Customer Data)
-{
-	NodePointer NewNode;
-	NodePointer TempPtr;
-	NodePointer LastPtr;
-
-	NewNode       = new Node;
-	NewNode->Data = Data;
-	LastPtr       = NULL;
-	TempPtr 	  = Head;
-
-
-	while(TempPtr != NULL)
-	{
-		LastPtr = TempPtr;
-		NewNode = TempPtr->Next;
-	}
-
-	NewNode->Next = TempPtr;
-
-	if(LastPtr == NULL)
-	{
-		Head = NewNode;
-	}
-	else
-	{
-		LastPtr->Next = NewNode;
-	}
+	Head.Add(Data);
 
 	return Head;
 }
 
-Customer SortedAddFunc(Customer* Head, Customer Data)
+CustomerList DeleteFunc(CustomerList Head, string Data)
 {
-	NodePointer NewNode;
-	NodePointer TempPtr;
-	NodePointer LastPtr;
-
-	NewNode       = new Node;
-	NewNode->Data = Data;
-	LastPtr       = NULL;
-	TempPtr 	  = Head;
-
-	while(TempPtr != NULL && Data > TempPtr->Data)
-	{
-		LastPtr = TempPtr;
-		TempPtr = TempPtr->Next;
-	}
-
-	NewNode->Next = TempPtr;
-
-	if(LastPtr == NULL)
-	{
-		Head = NewNode;
-	}
-	else
-	{
-		LastPtr->Next = NewNode;
-	}
-
-	return Head;
-}
-
-Customer DeleteFunc(Customer* Head, Customer Data)
-{
-	NodePointer TempPtr;
-	NodePointer LastPtr;
-
-	TempPtr = Head;
-
-	while(TempPtr != NULL && TempPtr->Data != Data)
-	{
-		LastPtr = TempPtr;
-		TempPtr = TempPtr->Next;
-	}
-
-	if(TempPtr->Data == Data)
-	{
-		LastPtr->Next = TempPtr->Next;
-		delete TempPtr;
-	}
+	Head.Delete(Data);
 
 	return Head;
 }
