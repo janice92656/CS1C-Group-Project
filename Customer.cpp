@@ -48,6 +48,10 @@ void Customer::SetDesire(string customDesire){
 	desire = customDesire;
 }
 
+void Customer::SetBrochure(char customBrochure){
+        brochure = customBrochure;
+}
+
 
 
 void Customer::ChangeCustomerName(string customName){
@@ -78,7 +82,9 @@ void Customer::ChangeDesire(string customDesire){
 	SetDesire(customDesire);
 }
 
-
+void Customer::ChangeBrochure(char customBrochure){
+    SetBrochure(customBrochure);
+}
 
 string Customer::GetCustomerName(){
 	return name;
@@ -108,6 +114,9 @@ string Customer::GetDesire(){
 	return desire;
 }
 
+char Customer::GetBrochure(){
+    return brochure;
+}
 
 
 bool Customer::RecievedBrochure(){
