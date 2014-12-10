@@ -31,6 +31,8 @@ void CustomerMenu()
             break;
         case 8: RequestBrochure();
             break;
+        case 9: Cart(0);
+            break;
         case 10 : ReadFile("contactUs.txt");
             break;
         case 11 : PrintBrochure();
