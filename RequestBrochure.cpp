@@ -1,4 +1,3 @@
-
 /***********************************************************
  * Request Brochures
  *  This is a simple function that will as the customers if
@@ -22,9 +21,10 @@ void RequestBrochure(){
         char response;
         
         cout << "Enter Company Name: ";
-        cin >> companyName;
+        // cin >> companyName;
         // cin.getline(companyName, 100);
-        // getline(cin, companyName);
+        getline(cin, companyName);
+        cout << companyName;
         /*
          */
 
