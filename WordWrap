@@ -1,0 +1,86 @@
+/**********************************************************
+*
+* FUNCTION WordWrapFunc
+*_________________________________________________________
+* This function recives a string formats the string
+* 	to a length defined at compile time, then
+*	output the string to the output file.
+*_________________________________________________________
+* PRE-CONDITIONS
+* synopsis : The string received from the output function.
+* ofile    : The output file.
+* maxLength: The max string line length, dictates where /n's
+*		go.
+*
+* POST-CONDITIONS
+* This function returns nothing - outputs formated strings
+***********************************************************/
+
+void WordWrapFunc(string synopsis,
+			      ofstream &ofile,
+			      int maxLength)
+{
+	/*******************************************************
+	* VARIABLES
+	* ----------------------------------------------------
+	* placeCount 	    : The current position in the string
+	* wordLength 	    : The length of the word being copied	
+	* currentLineLength : The length of the line being copied
+	*			 at any given time
+	* wordHolder	    : Holds words being copied
+	* lineHolder        : Holds and Outputs formated version
+	*    			 of the string being passed in
+	*******************************************************/
+
+	int placeCount;
+	int wordLength;
+	int lineLength;
+	int currentLineLength;
+	string wordHolder;
+	string lineHolder;
+	
+	//Initalize and Assign variables used in formating.
+	lineLength = synopsis.length();
+	currentLineLength = 0;
+	wordHolder.clear();
+	lineHolder.clear();
+	//FOR-LOOP: copies the string that was passed in, and 
+	//	   outputs a formated version.
+	for(placeCount = 0; placeCount < lineLength; placeCount++)
+	{
+		//IF-THEN: copies passed in string    
+		if(synopsis[placeCount] != ' ')
+		{
+			wordHolder += synopsis[placeCount];
+		}
+		//ELSE: adds words to the lineHolder variable
+		else
+		{
+			
+			wordLength = wordHolder.length();
+			//NESTED IF-THEN: Outputs formated strings 
+			if(currentLineLength + wordLength > maxLength)
+			{
+				ofile << lineHolder << endl;
+				lineHolder = wordHolder + " ";
+				currentLineLength = lineHolder.length();
+				wordHolder.clear();
+			}
+			//ELSE: Adds words to lineHolder string
+			else
+			{
+				lineHolder += wordHolder + " ";
+				currentLineLength += wordLength;
+				wordHolder.clear();
+			}//End NESTED IF-THEN-ELSE
+		}//End IF-THEN-ELSE
+	}//END FOR-LOOP
+	
+	//IF-THEN: Outputs last line of the formated string
+	if(currentLineLength + wordLength < maxLength)
+	{
+		ofile << lineHolder << wordHolder << endl;
+
+
+	}//End IF-THEN
+}
