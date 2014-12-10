@@ -1,0 +1,28 @@
+int cart(int cart[],int size,int max)
+{
+	int index = 0;
+	int order;
+
+	cout << "Add what item?(enter -1 to return to last menu): \n";
+	cin >> order;
+
+	while(order != -1)
+	{
+
+		if(order > 0 and order < 11)
+		{
+			cart[index] = order;
+			index++;
+			max++;
+		}
+		else
+		{
+			cout << "Invalid order, please try again.\n";
+		}
+
+		cout << "Add what item?(enter -1 to return to last menu): \n";
+		cin >> order;
+	}
+
+	return max;
+}
