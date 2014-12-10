@@ -2,16 +2,15 @@
 #include "header.h"
 using namespace std;
 
-int WelcomeMenu()
+void WelcomeMenu()
 {
-    int choice;
+    int choice = 1;
     bool valid = false;
     int index = 0;
-    
-    ReadFile("welcome.txt");
-    cin >> choice;
     while(choice != 0)
     {
+        ReadFile("welcome.txt");
+        cin >> choice;
         switch(choice)
             {
               case 1: CustomerMenu();
@@ -36,30 +35,17 @@ int WelcomeMenu()
                     if(valid != true)
                     {
                         index++;
-
                         cout << index << " tries used, " << 3 - index << " left\n";
                     }
-
-
                 }
-
-
-
-                if (valid == true)
-                {
-                   
-                }
-                else
+                if (valid != true)
                 {
                    cout << "\nFailed Log In attempts, you have no more left\n"; 
                 }
-
                   break;
-              case 0: return 0;
+              case 0: 
                   break;
               default: cout << "\nError, Incorrect Input!";
         } 
-    ReadFile("welcome.txt");
-    cin >> choice;
     }
 }
