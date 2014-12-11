@@ -1,159 +1,318 @@
-#ifndef CUSTOMERLIST_H
-#define	CUSTOMERLIST_H
+#ifndef CUSTOMERLIST_H_
+#define CUSTOMERLIST_H_
+
 #include "LinkedList.h"
 #include "Customer.h"
-#include <sstream>
 
-struct Node
-{
-		Customer Data;
-		Node*    Next;
+#include <fstream>
+#include <sstream>
+struct Node {
+	Customer Data;
+	Node* Next;
 };
 typedef Node* NodePointer;
+class CustomerList: public Customer {
+public:
+// Constructor
+	CustomerList();
+// Destructor
+	~CustomerList();
+// Add Customer Data To The List
+	void Add(Customer Data);
+// Remove Customer Data From The List
+	void Delete(string Data);
+// Output The List
+	void Output();
+// Check If The List Is Empty
+	bool isEmpty();
+// Search For A Customer in The List
+	NodePointer FindCustomer(string name);
+	bool FindCustomerBool(string name);
+// Modify The Customer's Name Data
+	void EditCustomerName(string name, string change);
+// Modify The Customer's Address Data
+	void EditCustomerAddress(string name, string change);
+// Modify The Customer's City Data
+	void EditCustomerCity(string name, string change);
+// Modify The Customer's State Data
+	void EditCustomerState(string name, string change);
+// Modify The Customer's Zip Data
+	void EditCustomerZip(string name, string change);
+// Modify The Customer's Interest Data
+	void EditCustomerInterest(string name, int change);
+// Modify The Customer's Desire Data
+	void EditCustomerDesire(string name, int change);
+// Modify The Customer's Brochure Data
+	void EditCustomerBrochure(string name, int change);
 
-class CustomerList : public Customer
-{
+	void Prop(string fileName);
 
+	void DeProp(string fileName);
 
-	public:
-	// Constructor
-    CustomerList();
-    // Destructor
-    ~CustomerList();
-    // Add Customer Data To The List
-    void Add(Customer Data);
-    // Remove Customer Data From The List
-    void Delete(string Data);
-    // Output The List
-    void Output()const;
-    // Check If The List Is Empty
-    bool isEmpty();
-    // Search For A Customer in The List
-    NodePointer FindCustomer(string name);
-    // Modify The Customer's Name Data
-    void EditCustomerName(string name,  string change);
-    // Modify The Customer's Address Data
-    void EditCustomerAddress(string name, string change);
-    // Modify The Customer's City Data
-    void EditCustomerCity(string name, string change);
-    // Modify The Customer's State Data
-    void EditCustomerState(string name, string change);
-    // Modify The Customer's Zip Data
-    void EditCustomerZip(string name, string change);
-    // Modify The Customer's Interest Data
-    void EditCustomerInterest(string name, int change);
-    // Modify The Customer's Desire Data
-    void EditCustomerDesire(string name, int change);
-    // Modify The Customer's Brochure Data
-    void EditCustomerBrochure(string name, int change);
- 
-	private:
-    int customers;
-    NodePointer Head;
+	bool IsDup(string name);
+
+private:
+	int customers;
+	NodePointer Head;
+	string* people;
+	int max;
+
 };
 
-CustomerList::CustomerList(){
-	Head      = NULL;
+CustomerList::CustomerList()
+{
+	Head = NULL;
 	customers = 0;
+	max = 25;
+	people = new string [max];
 }
-CustomerList::~CustomerList(){
-	if(!isEmpty())
+CustomerList::~CustomerList()
+{
+	if (!isEmpty())
 	{
 		NodePointer Temp;
-		while(!isEmpty())
+
+		while (!isEmpty())
 		{
 			Temp = Head;
 			Head = Head->Next;
 			delete Temp;
 		}
+
 		Temp = NULL;
+	}
+
+	delete [] people;
+}
+
+
+void CustomerList::Prop(string fileName)
+{
+	ifstream iFile;
+	string name;
+	string address1;
+	string zip;
+	string city;
+	string interest;
+	string value;
+	char brochure;
+	string state;
+	Customer *ptr;
+	int index = 0;
+	int index2 = 0;
+	bool dup = false;
+
+
+	iFile.open(fileName.c_str());
+
+	while (iFile)
+	{
+		ptr = new Customer;
+
+		getline(iFile, name);
+		getline(iFile, address1);
+		getline(iFile, city);
+		getline(iFile, state);
+		getline(iFile, zip);
+		getline(iFile, interest);
+		getline(iFile, value);
+		iFile.get(brochure);
+		iFile.ignore(100, '\n');
+
+		ptr->SetCustomerName(name);
+		ptr->SetCustomerAddress(address1);
+		ptr->SetCustomerCity(city);
+		ptr->SetCustomerState(state);
+		ptr->SetCustomerZip(zip);
+		ptr->SetInterest(interest);
+		ptr->SetDesire(value);
+		ptr->SetBrochure(brochure);
+
+
+		for (index2 = 0; index2 < customers; index2++)
+		{
+			if (people[index2] == ptr->GetCustomerName())
+			{
+				dup = true;
+			}
+		}
+
+		if (dup == false)
+		{
+			Add(*ptr);
+			people[index] = ptr->GetCustomerName();
+			index++;
+			customers++;
+		}
+
+		dup = false;
+		delete ptr;
+	}
+
+	iFile.close();
+}
+
+void CustomerList::DeProp(string fileName) {
+	ofstream oFile;
+	NodePointer temp = Head;
+
+	oFile.open(fileName.c_str());
+
+	while (temp != NULL) {
+
+		oFile << temp->Data.GetCustomerName() << endl;
+		oFile << temp->Data.GetCustomerAddress() << endl;
+		oFile << temp->Data.GetCustomerCity() << endl;
+		oFile << temp->Data.GetCustomerState() << endl;
+		oFile << temp->Data.GetCustomerZip() << endl;
+		oFile << temp->Data.GetInterest() << endl;
+		oFile << temp->Data.GetDesire() << endl;
+		oFile << temp->Data.GetBrochure();
+
+		temp = temp->Next;
+
+		if(temp != NULL)
+		{
+			oFile << endl;
+		}
+	}
+
+	oFile.close();
+}
+
+void CustomerList::Add(Customer Data)
+{
+	NodePointer NewNode;
+	NodePointer TempPtr;
+	NodePointer LastPtr;
+
+	NewNode       = new Node;
+	NewNode->Data = Data;
+	LastPtr       = NULL;
+	TempPtr 	  = Head;
+
+
+			if(!IsDup(Data.GetCustomerName()))
+			{
+
+				while(TempPtr != NULL && Data.GetCustomerName() > TempPtr->Data.GetCustomerName())
+				{
+					LastPtr = TempPtr;
+					TempPtr = TempPtr->Next;
+				}
+
+				NewNode->Next = TempPtr;
+
+				if(LastPtr == NULL)
+				{
+					Head = NewNode;
+				}
+				else
+				{
+					LastPtr->Next = NewNode;
+				}
+
+
+				people[customers] = NewNode->Data.GetCustomerName();
+				customers++;
+			}
+			else
+			{
+				cout << "\n\nError: Cannot Add Duplicate Customer Data\n\n";
+			}
+
+
+
+}
+
+void CustomerList::Delete(string Data)
+{
+	NodePointer TempPtr;
+	NodePointer LastPtr;
+	TempPtr = Head;
+	LastPtr = NULL;
+
+
+
+	if(IsDup(Data))
+	{
+
+
+		if(TempPtr->Data.GetCustomerName() == Data)
+		{
+			LastPtr = TempPtr;
+			TempPtr = TempPtr->Next;
+			delete LastPtr;
+			Head = TempPtr;
+		}
+		else
+		{
+
+			while (TempPtr != NULL && TempPtr->Data.GetCustomerName() != Data)
+			{
+
+				cerr << "Thi";
+				cin.ignore(1000,'\n');
+
+				LastPtr = TempPtr;
+				TempPtr = TempPtr->Next;
+			}
+
+			if (TempPtr->Data.GetCustomerName() == Data)
+			{
+
+					cerr << "Fou";
+					cin.ignore(1000,'\n');
+					LastPtr->Next = TempPtr->Next;
+					LastPtr = TempPtr;
+					TempPtr = TempPtr->Next;
+					delete LastPtr;
+					Head = TempPtr;
+			}
+
+		}
+	}
+	else
+	{
+		cout << "Error: Cannot delete, duplicate detected\n";
 	}
 }
 
-void CustomerList::Add(Customer Data){
-    NodePointer NewNode;
-    NodePointer TempPtr;
-    NodePointer LastPtr;
+void CustomerList::Output()
+{
+	ostringstream info;
+	int interestCount = 0;
+	int length = 0;
+	string customerInterest;
+	string temp;
+	string desire;
+	string address;
+	int nice = 0;
+	NodePointer tempPtr;
+	tempPtr = Head;
 
-    NewNode       = new Node;
-    NewNode->Data = Data;
-    LastPtr       = NULL;
-    TempPtr 	  = Head;
-
-    while(TempPtr != NULL && Data.GetCustomerName()
-    									> TempPtr->Data.GetCustomerName())
-    {
-            LastPtr = TempPtr;
-            TempPtr = TempPtr->Next;
-    }
-
-    NewNode->Next = TempPtr;
-
-    if(LastPtr == NULL)
-    {
-            Head = NewNode;
-    }
-    else
-    {
-            LastPtr->Next = NewNode;
-    }
-
-    customers++;
-}
-
-void CustomerList::Delete(string Data){
-    NodePointer TempPtr;
-    NodePointer LastPtr;
-
-    TempPtr = Head;
-
-    while(TempPtr != NULL && TempPtr->Data.GetCustomerName() != Data)
-    {
-            LastPtr = TempPtr;
-            TempPtr = TempPtr->Next;
-    }
-
-    if(TempPtr->Data.GetCustomerName() == Data)
-    {
-            LastPtr->Next = TempPtr->Next;
-            delete TempPtr;
-    }
-
-    customers--;
-}
+	DeProp("customer");
+	Prop("customer");
 
 
-void CustomerList::Output()const{
-    ostringstream info;
-    int           interestCount    = 0;
-    int           length           = 0;
-    string        customerInterest;
-    string        temp;
-    string        desire;
-    string        address;
-    NodePointer   tempPtr;
-
-    tempPtr = Head;
-
-    cout << left <<  setfill('-') << setw(138) << ' ' << setfill(' ') << endl;
-	cout <<setw(2)  << '|' << setw(30) << "Customer Name" << setw(2)
-		 << '|' << setw(50) << "Customer Address"<< setw(2) << '|' << setw(6)
-		 << "State" <<  setw(2) << '|' << setw(6) << "Zip" << setw(2) << '|'
-		 << setw(9) << "Interest" << setw(2) << '|' << setw(6) << "Value"
-		 << setw(2) << '|' << setw(17) << "Brochure Received" << setw(2)
-		 << '|' << endl;
+	cout << left << setfill('-') << setw(138) << ' ' << setfill(' ') << endl;
+	cout << setw(2) << '|' << setw(30) << "Customer Name" << setw(2) << '|'
+			<< setw(50) << "Customer Address" << setw(2) << '|' << setw(6)
+			<< "State" << setw(2) << '|' << setw(6) << "Zip" << setw(2) << '|'
+			<< setw(9) << "Interest" << setw(2) << '|' << setw(6) << "Value"
+			<< setw(2) << '|' << setw(17) << "Brochure Received" << setw(2)
+			<< '|' << endl;
 	cout << setfill('-') << setw(138) << ' ' << setfill(' ') << endl;
 
-    while(tempPtr != NULL)
-    {
-    	customerInterest = tempPtr->Data.GetInterest();
-		length =  customerInterest.size();
+	while (tempPtr != NULL)
+	{
+		customerInterest = tempPtr->Data.GetInterest();
+		length = customerInterest.size();
 		temp = "";
 		interestCount = 0;
-		while(interestCount < length)
+		while (interestCount < length)
 		{
-
-			if(customerInterest[interestCount] == ' ')
+			if (customerInterest[interestCount] == ' ')
 			{
 				interestCount = customerInterest.size() + 1;
 			}
@@ -161,18 +320,19 @@ void CustomerList::Output()const{
 			{
 				temp += customerInterest[interestCount];
 			}
+
 			interestCount++;
 		}
-
 		desire = "";
-		if("key" != tempPtr->Data.GetDesire())
+		if ("key" != tempPtr->Data.GetDesire())
 		{
 			string thing = tempPtr->Data.GetDesire();
 
-			for(int count = 0; count < 4; count++)
+			for (int count = 0; count < 4; count++)
 			{
 				desire += thing[count];
 			}
+
 		}
 		else
 		{
@@ -181,25 +341,27 @@ void CustomerList::Output()const{
 
 		address = tempPtr->Data.GetCustomerAddress() + ", "
 				+ tempPtr->Data.GetCustomerCity();
-		cout << setw(2)   << '|'     << setw(30)
-			 << tempPtr->Data.GetCustomerName()
-			 << setw(2) << '|'
-			 << setw(50)
-			 << address
-			 << setw(2) << '|'       << setw(6)
-			 << tempPtr->Data.GetCustomerState()   << setw(2) << '|'
-			 << setw(6)
-			 << tempPtr->Data.GetCustomerZip()     << setw(2) << '|'
-			 << setw(9)
-			 << temp    << setw(2)   << '|'     << setw(6)
-			 << desire  << setw(2)   << '|'     << setw(17)
-			 << tempPtr->Data.GetBrochure() << setw(2) << '|'
-			 << endl;
+		cout << setw(2) << '|' << setw(30) << tempPtr->Data.GetCustomerName()
+				<< setw(2) << '|' << setw(50) << address << setw(2) << '|'
+				<< setw(6) << tempPtr->Data.GetCustomerState() << setw(2) << '|'
+				<< setw(6) << tempPtr->Data.GetCustomerZip() << setw(2) << '|'
+				<< setw(9) << temp << setw(2) << '|' << setw(6) << desire
+				<< setw(2) << '|' << setw(17) << tempPtr->Data.GetBrochure()
+				<< setw(2) << '|' << endl;
+
+				if(tempPtr->Data.GetDesire() == "key" or tempPtr->Data.GetDesire() == "nice to have"
+					or tempPtr->Data.GetDesire() == "Key" or tempPtr->Data.GetDesire() == "Nice To Have")
+				{
+					nice++;
+				}
 
 		tempPtr = tempPtr->Next;
-    }
-    cout << setfill('-') << setw(138) << ' ' << setfill(' ') << endl;
+
+	}
+	cout << setfill('-') << setw(138) << ' ' << setfill(' ') << endl;
+	cout << "Number of nice to have and key customers: " << nice << endl;
 }
+
 
 bool CustomerList::isEmpty()
 {
@@ -209,113 +371,188 @@ bool CustomerList::isEmpty()
 NodePointer CustomerList::FindCustomer(string name)
 {
 	NodePointer TempPtr;
-	NodePointer LastPtr;
 	bool found = false;
 
-	TempPtr = Head;
+	TempPtr    = Head;
 
-	while(TempPtr != NULL && !found)
+	while (TempPtr != NULL && !found)
 	{
-		LastPtr = TempPtr;
-		TempPtr = TempPtr->Next;
-		if(TempPtr->Data.GetCustomerName() == name)
-		{
-			found = true;
-		}
-	}
 
+			if (TempPtr->Data.GetCustomerName() == name)
+			{
+				found = true;
+			}
+			else
+			{
+				TempPtr = TempPtr->Next;
+			}
+
+	}
 	return TempPtr;
 }
 
+bool CustomerList::FindCustomerBool(string name)
+{
+
+	bool found = false;
+	NodePointer TempPtr = Head;
+
+	while (TempPtr != NULL && !found)
+	{
+
+			if (TempPtr->Data.GetCustomerName() == name)
+			{
+				found = true;
+			}
+			else
+			{
+				TempPtr = TempPtr->Next;
+			}
+
+	}
+
+	return found;
+}
+
+bool CustomerList::IsDup(string Data)
+{
+
+	return FindCustomerBool(Data);
+
+
+}
 void CustomerList::EditCustomerName(string name, string change)
 {
 	NodePointer TempPtr;
-
 	TempPtr = FindCustomer(name);
-	TempPtr->Data.ChangeCustomerName(change);
 
+	if(FindCustomerBool(name) && !IsDup(change))
+	{
+		TempPtr->Data.ChangeCustomerName(change);
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}
 }
-
 void CustomerList::EditCustomerAddress(string name, string change)
 {
 	NodePointer TempPtr;
-
 	TempPtr = FindCustomer(name);
-	TempPtr->Data.ChangeCustomerAddress(change);
+	if(FindCustomerBool(name))
+	{
+		TempPtr->Data.ChangeCustomerAddress(change);
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}
 
 }
-
 void CustomerList::EditCustomerCity(string name, string change)
 {
 	NodePointer TempPtr;
-
 	TempPtr = FindCustomer(name);
-	TempPtr->Data.ChangeCustomerCity(change);
-
-}
-
-void CustomerList::EditCustomerState(string name, string change)
-{
-	NodePointer TempPtr;
-
-	TempPtr = FindCustomer(name);
-	TempPtr->Data.ChangeCustomerState(change);
-}
-
-void CustomerList::EditCustomerZip(string name, string change)
-{
-	NodePointer TempPtr;
-
-	TempPtr = FindCustomer(name);
-	TempPtr->Data.ChangeCustomerZip(change);
-
-}
-void CustomerList::EditCustomerInterest(string name, int change)
-{
-	NodePointer TempPtr;
-
-	TempPtr = FindCustomer(name);
-	switch(change)
+	if(FindCustomerBool(name))
 	{
-	case 1  : TempPtr->Data.ChangeInterest("very interested");
-		    break;
-	case 2  : TempPtr->Data.ChangeInterest("somewhat interested");
-		    break;
-	case 3  : TempPtr->Data.ChangeInterest("not interested");
+		TempPtr->Data.ChangeCustomerCity(change);
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}}
+void CustomerList::EditCustomerState(string name, string change) {
+	NodePointer TempPtr;
+	TempPtr = FindCustomer(name);
+	if(FindCustomerBool(name))
+	{
+		TempPtr->Data.ChangeCustomerState(change);
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}
+}
+void CustomerList::EditCustomerZip(string name, string change) {
+	NodePointer TempPtr;
+	TempPtr = FindCustomer(name);
+	if(FindCustomerBool(name))
+	{
+		TempPtr->Data.ChangeCustomerZip(change);
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}
+}
+void CustomerList::EditCustomerInterest(string name, int change) {
+	NodePointer TempPtr;
+	TempPtr = FindCustomer(name);
+
+	if(FindCustomerBool(name))
+	{
+		switch (change) {
+		case 1:
+			TempPtr->Data.ChangeInterest("very interested");
 			break;
-	default : cout << "Error \n";
-	}
-}
-
-void CustomerList::EditCustomerDesire(string name, int change)
-{
-	NodePointer TempPtr;
-
-	TempPtr = FindCustomer(name);
-	switch(change)
-	{
-	case 1  : TempPtr->Data.ChangeDesire("Key");
-		    break;
-	case 2  : TempPtr->Data.ChangeDesire("Nice To Have");
+		case 2:
+			TempPtr->Data.ChangeInterest("somewhat interested");
 			break;
-	default : cout << "Error \n";
+		case 3:
+			TempPtr->Data.ChangeInterest("not interested");
+			break;
+		default:
+			cout << "Error \n";
+		}
 	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
+	}
+
+
 }
-
-void CustomerList::EditCustomerBrochure(string name, int change)
-{
+void CustomerList::EditCustomerDesire(string name, int change) {
 	NodePointer TempPtr;
-
 	TempPtr = FindCustomer(name);
 
-	if(TempPtr->Data.GetBrochure() != 'Y' && change == 1)
+
+	if(FindCustomerBool(name))
 	{
-		TempPtr->Data.ChangeBrochure('Y');
+		switch (change) {
+		case 1:
+			TempPtr->Data.ChangeDesire("Key");
+			break;
+		case 2:
+			TempPtr->Data.ChangeDesire("Nice To Have");
+			break;
+		default:
+			cout << "Error \n";
+		}
 	}
-	else if(TempPtr->Data.GetBrochure() != 'N' && change == 2)
+	else
 	{
-		TempPtr->Data.ChangeBrochure('N');
+		cout << "Customer " << name << " not found\n";
+	}
+
+
+
+}
+void CustomerList::EditCustomerBrochure(string name, int change) {
+	NodePointer TempPtr;
+	TempPtr = FindCustomer(name);
+
+	if(FindCustomerBool(name))
+	{
+		if (TempPtr->Data.GetBrochure() != 'Y' && change == 1) {
+			TempPtr->Data.ChangeBrochure('Y');
+		} else if (TempPtr->Data.GetBrochure() != 'N' && change == 2) {
+			TempPtr->Data.ChangeBrochure('N');
+		}
+	}
+	else
+	{
+		cout << "Customer " << name << " not found\n";
 	}
 }
-#endif	/* CUSTOMERLIST_H */
-
+#endif
